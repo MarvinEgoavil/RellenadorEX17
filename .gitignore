@@ -1,8 +1,13 @@
+# ==========================================
 # Rellenador EX-17
 # Java + Maven + NetBeans
+# ==========================================
 
-# Maven
+# Maven / compilación
 target/
+build/
+dist/
+installer/
 
 # Java
 *.class
@@ -10,15 +15,21 @@ target/
 *.war
 *.ear
 
+# Ejecutables e instaladores
+*.exe
+*.msi
+
+# Paquetes de distribución
+*.rar
+*.zip
+
 # NetBeans
 nbproject/private/
-build/
 nbbuild/
-dist/
 nbdist/
 .nb-gradle/
 
-# IDEs
+# Otros IDE
 .idea/
 *.iml
 .vscode/
