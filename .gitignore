@@ -1,0 +1,40 @@
+# Rellenador EX-17
+# Java + Maven + NetBeans
+
+# Maven
+target/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Logs y temporales
+*.log
+*.tmp
+*.temp
+*~
+
+# PDFs generados por la aplicación
+EX17_*.pdf

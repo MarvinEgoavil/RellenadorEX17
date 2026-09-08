@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.alucardstudio.rellenadorex17.SecondaryController"
+          prefWidth="1120"
+          prefHeight="700"
+          hgap="12"
+          snapToPixel="true">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+
+    <!-- ======================================================== -->
+    <!-- PROPORCIONES DE LAS 3 COLUMNAS -->
+    <!-- ======================================================== -->
+
+    <columnConstraints>
+
+        <!-- Columna izquierda -->
+        <ColumnConstraints percentWidth="22"/>
+
+        <!-- Columna central -->
+        <ColumnConstraints percentWidth="46"/>
+
+        <!-- Columna derecha -->
+        <ColumnConstraints percentWidth="32"/>
+
+    </columnConstraints>
+
+    <rowConstraints>
+
+        <!-- Una sola fila que ocupa toda la altura -->
+        <RowConstraints percentHeight="100"/>
+
+    </rowConstraints>
+
+
+    <!-- ======================================================== -->
+    <!-- 1. COLUMNA IZQUIERDA - MENÚ -->
+    <!-- ======================================================== -->
+
+    <VBox GridPane.columnIndex="0"
+          GridPane.rowIndex="0"
+          spacing="10"
+          maxWidth="Infinity"
+          maxHeight="Infinity"
+          snapToPixel="true"
+          style="-fx-border-color: #d9d9d9;
+                 -fx-border-radius: 8;
+                 -fx-background-radius: 8;
+                 -fx-padding: 15;">
+
+        <Label text="Rellenador EX-17"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #222222;"/>
+
+        <Label text="Configuración avanzada"
+               style="-fx-text-fill: #444444;"/>
+
+        <Button text="1. Subir documento"
+                maxWidth="Infinity"/>
+
+        <Button text="2. Secciones del formulario"
+                maxWidth="Infinity"/>
+
+        <Button text="3. Campos por sección"
+                maxWidth="Infinity"/>
+
+        <Button text="4. Campos especiales"
+                maxWidth="Infinity"/>
+
+        <Button text="5. Fecha y firma"
+                maxWidth="Infinity"/>
+
+        <Button text="6. Vista previa y generar"
+                maxWidth="Infinity"/>
+
+
+        <!-- ==================================================== -->
+        <!-- PLANTILLAS -->
+        <!-- ==================================================== -->
+
+        <Label text="Plantillas"
+               style="-fx-font-size: 14px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #222222;"/>
+
+        <Button text="Guardar configuración"
+                maxWidth="Infinity"
+                onAction="#guardarConfiguracion"/>
+
+        <Button text="Cargar configuración"
+                maxWidth="Infinity"/>
+
+        <Button text="← Volver"
+                maxWidth="Infinity"
+                onAction="#volver"/>
+
+    </VBox>
+
+
+    <!-- ======================================================== -->
+    <!-- 2. COLUMNA CENTRAL - CONFIGURACIÓN -->
+    <!-- ======================================================== -->
+
+    <VBox GridPane.columnIndex="1"
+          GridPane.rowIndex="0"
+          spacing="8"
+          maxWidth="Infinity"
+          maxHeight="Infinity"
+          snapToPixel="true">
+
+        <padding>
+            <Insets top="12"
+                    right="12"
+                    bottom="18"
+                    left="12"/>
+        </padding>
+
+
+        <!-- ==================================================== -->
+        <!-- AVISO VERSIÓN 2.0 -->
+        <!-- ==================================================== -->
+
+        <VBox alignment="CENTER"
+              spacing="4"
+              maxWidth="Infinity"
+              snapToPixel="true"
+              style="-fx-background-color: #f3f3f3;
+                     -fx-border-color: #cccccc;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-padding: 8;">
+
+            <Label text="🚧 PRÓXIMAMENTE EN VERSIÓN 2.0"
+                   style="-fx-font-size: 15px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #222222;"/>
+
+            <Label text="Configuración avanzada actualmente en desarrollo"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #444444;"/>
+
+        </VBox>
+
+
+        <!-- ==================================================== -->
+        <!-- TÍTULO -->
+        <!-- ==================================================== -->
+
+        <Label text="Secciones del formulario EX-17"
+               wrapText="true"
+               maxWidth="Infinity"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #222222;"/>
+
+        <Label text="Aquí aparecerán las opciones de configuración."
+               wrapText="true"
+               maxWidth="Infinity"
+               style="-fx-text-fill: #444444;"/>
+
+
+        <!-- ==================================================== -->
+        <!-- SECCIÓN 1 -->
+        <!-- ==================================================== -->
+
+        <VBox spacing="8"
+              maxWidth="Infinity"
+              snapToPixel="true"
+              style="-fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-padding: 10;">
+
+            <Label text="1. Datos de la persona extranjera"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #222222;"/>
+
+            <Label text="Se copiarán los datos personales del documento origen."
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-text-fill: #444444;"/>
+
+        </VBox>
+
+
+        <!-- ==================================================== -->
+        <!-- SECCIÓN 2 -->
+        <!-- ==================================================== -->
+
+        <VBox spacing="8"
+              maxWidth="Infinity"
+              snapToPixel="true"
+              style="-fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-padding: 10;">
+
+            <Label text="2. Datos del representante"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #222222;"/>
+
+            <Label text="Esta sección se configurará más adelante."
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-text-fill: #444444;"/>
+
+        </VBox>
+
+
+        <!-- ==================================================== -->
+        <!-- SECCIÓN 3 -->
+        <!-- ==================================================== -->
+
+        <VBox spacing="8"
+              maxWidth="Infinity"
+              snapToPixel="true"
+              style="-fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-padding: 10;">
+
+            <Label text="3. Domicilio a efectos de notificaciones"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #222222;"/>
+
+            <Label text="Podrá copiarse desde la Sección 1."
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-text-fill: #444444;"/>
+
+        </VBox>
+
+
+        <!-- ==================================================== -->
+        <!-- CONFIGURACIÓN DEL DOCUMENTO -->
+        <!-- ==================================================== -->
+
+        <VBox spacing="8"
+              maxWidth="Infinity"
+              snapToPixel="true"
+              style="-fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-padding: 10;">
+
+            <Label text="Configuración del documento"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #222222;"/>
+
+            <Label text="Ciudad"
+                   style="-fx-text-fill: #222222;"/>
+
+            <TextField fx:id="txtCiudad"
+                       text="MADRID"
+                       promptText="Ciudad"
+                       maxWidth="Infinity"/>
+
+            <Label text="Tipo de tarjeta"
+                   style="-fx-text-fill: #222222;"/>
+
+            <HBox spacing="12"
+                  maxWidth="Infinity"
+                  snapToPixel="true">
+
+                <RadioButton fx:id="rbInicial"
+                             text="Inicial"
+                             selected="true"
+                             style="-fx-text-fill: #222222;"/>
+
+                <RadioButton fx:id="rbRenovacion"
+                             text="Renovación"
+                             style="-fx-text-fill: #222222;"/>
+
+                <RadioButton fx:id="rbDuplicado"
+                             text="Duplicado"
+                             style="-fx-text-fill: #222222;"/>
+
+            </HBox>
+
+            <CheckBox fx:id="chkConsiento"
+                      text="Consiento comunicaciones por DEHú"
+                      selected="true"
+                      wrapText="true"
+                      maxWidth="Infinity"
+                      style="-fx-text-fill: #222222;"/>
+
+            <CheckBox fx:id="chkCopiarSeccion1"
+                      text="Copiar datos de la Sección 1"
+                      selected="true"
+                      wrapText="true"
+                      maxWidth="Infinity"
+                      style="-fx-text-fill: #222222;"/>
+
+            <CheckBox fx:id="chkRellenarSeccion3"
+                      text="Rellenar Sección 3 con datos de la Sección 1"
+                      selected="true"
+                      wrapText="true"
+                      maxWidth="Infinity"
+                      style="-fx-text-fill: #222222;"/>
+
+        </VBox>
+
+    </VBox>
+
+
+    <!-- ======================================================== -->
+    <!-- 3. COLUMNA DERECHA - VISTA PREVIA -->
+    <!-- ======================================================== -->
+
+    <VBox GridPane.columnIndex="2"
+          GridPane.rowIndex="0"
+          spacing="12"
+          maxWidth="Infinity"
+          maxHeight="Infinity"
+          snapToPixel="true"
+          style="-fx-border-color: #d9d9d9;
+                 -fx-border-radius: 8;
+                 -fx-background-radius: 8;">
+
+        <padding>
+            <Insets top="18"
+                    right="18"
+                    bottom="18"
+                    left="18"/>
+        </padding>
+
+        <Label text="Vista previa del EX-17"
+               wrapText="true"
+               maxWidth="Infinity"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #222222;"/>
+
+        <Label text="La vista previa real del PDF aparecerá aquí."
+               wrapText="true"
+               maxWidth="Infinity"
+               style="-fx-text-fill: #444444;"/>
+
+        <VBox alignment="CENTER"
+              VBox.vgrow="ALWAYS"
+              maxWidth="Infinity"
+              maxHeight="Infinity"
+              snapToPixel="true"
+              style="-fx-border-color: #bbbbbb;
+                     -fx-border-radius: 6;
+                     -fx-background-radius: 6;
+                     -fx-background-color: #f5f5f5;">
+
+            <Label text="VISTA PREVIA"
+                   style="-fx-font-size: 18px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #888888;"/>
+
+        </VBox>
+
+        <Button text="Generar EX-17"
+                prefHeight="48"
+                maxWidth="Infinity"
+                onAction="#generarAvanzado"/>
+
+    </VBox>
+
+</GridPane>
