@@ -49,3 +49,13 @@ Desktop.ini
 
 # PDFs generados por la aplicación
 EX17_*.pdf
+# Temporales de instalador
+wix-temp/
+installer-temp/
+installer-tools/output/
+installer-tools/input/
+installer-tools/icon-temp/
+dist/
+
+# Binarios generados
+installer/*.exe

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <Fragment>
+
+    <!-- Imagen personalizada de Alucard Studio -->
+    <WixVariable
+        Id="WixUIDialogBmp"
+        Value="C:\Cursos\Java\Netbeans\RellenadorEX17\assets\installer-dialog.bmp"
+        Overridable="yes" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+
+    <UI Id="JpUI">
+
+      <UIRef Id="WixUI_InstallDir" />
+
+      <DialogRef Id="InstallDirNotEmptyDlg" />
+
+      <Publish Dialog="WelcomeDlg"
+               Control="Next"
+               Event="NewDialog"
+               Value="InstallDirDlg"
+               Order="6">
+        NOT Installed
+      </Publish>
+
+      <Publish Dialog="InstallDirDlg"
+               Control="Back"
+               Event="NewDialog"
+               Value="WelcomeDlg"
+               Order="6">
+        NOT Installed
+      </Publish>
+
+    </UI>
+
+  </Fragment>
+
+</Wix>
