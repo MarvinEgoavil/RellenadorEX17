@@ -21,26 +21,19 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        // Cargamos la interfaz principal.
-        //
-        // Ancho: 720 px
-        // Alto: 650 px
-        //
-        // Dejamos suficiente espacio para que, cuando aparezca
-        // el botón "+ NUEVO EX-17", la opción de
-        // "Configuración avanzada" no quede pegada al borde.
+        //Tamaño compacto de la pantalla principal
         scene = new Scene(
                 loadFXML("primary"),
                 520,
-                500
+                340
         );
 
         // Asignamos la escena a la ventana.
         stage.setScene(scene);
 
         // Título de la ventana.
-        stage.setTitle("Rellenador EX-17 v1.0");
-        
+        stage.setTitle("Rellenador EX-17 v1.2");
+
         // Icono de la aplicación.
         stage.getIcons().add(
                 new Image(
@@ -77,7 +70,7 @@ public class App extends Application {
         } else {
 
             stage.setWidth(520);
-            stage.setHeight(500);
+            stage.setHeight(340);
 
             stage.setResizable(false);
         }

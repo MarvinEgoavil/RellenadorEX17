@@ -2,43 +2,55 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.alucardstudio.rellenadorex17.PrimaryController"
       alignment="CENTER"
-      spacing="10"
+      spacing="7"
       prefWidth="520"
-      prefHeight="470">
+      prefHeight="370">
 
     <padding>
-        <Insets top="15" right="30" bottom="15" left="30"/>
+        <Insets top="5" right="30" bottom="8" left="30"/>
     </padding>
 
-    <Label text="RELLENADOR EX-17"
-           style="-fx-font-size: 30px; -fx-font-weight: bold;"/>
+    <StackPane prefWidth="460">
 
-    <Label text="Gestoría Merlino"
+        <Label text="RELLENADOR EX-17"
+               style="-fx-font-size: 30px; -fx-font-weight: bold;"
+               StackPane.alignment="CENTER"/>
+
+        <Button text="ⓘ"
+                onAction="#abrirAcercaDe"
+                StackPane.alignment="CENTER_RIGHT"
+                style="-fx-background-color: transparent; -fx-font-size: 18px; -fx-cursor: hand;"/>
+
+    </StackPane>
+
+    <Label text="Gestoría Merlino  •  v1.2"
            style="-fx-font-size: 15px; -fx-text-fill: #666666;"/>
 
-    <Label text="CONFIGURACIÓN CLÁSICA"
-           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-    <Label text="Sube los documentos necesarios para generar un nuevo EX-17."/>
+    <Label text="Sube el documento necesario para generar un nuevo EX-17."/>
 
     <Button fx:id="btnSubirEx17"
-            text="① Subir EX-17 lleno"
+            text="① Subir formulario de origen"
             prefWidth="320"
             prefHeight="38"
             onAction="#seleccionarEx17"/>
+
+    <Label text="EX-03  ·  EX-25  ·  EX-26  ·  EX-31  ·  EX-32"
+           style="-fx-font-size: 11px; -fx-text-fill: #999999;"/>
 
     <Label fx:id="lblEx17"
            text="Ningún archivo seleccionado"
            style="-fx-text-fill: #777777;"/>
 
-    <Button fx:id="btnSubirResolucion" 
+    <Button fx:id="btnSubirResolucion"
             text="② Subir resolución de concesión"
             prefWidth="220"
             prefHeight="38"
@@ -47,18 +59,25 @@
     <Label fx:id="lblResolucion"
            text="Ningún archivo seleccionado"
            style="-fx-text-fill: #777777;"/>
-    
+
     <Label fx:id="lblNie"
            text=""
            style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
 
+    <Hyperlink fx:id="linkVerError"
+               text="Ver detalles del error"
+               visible="false"
+               managed="false"
+               onAction="#verUltimoError"
+               style="-fx-font-size: 12px; -fx-padding: 0;"/>
+
     <Button fx:id="btnContinuar"
             text="CONTINUAR →"
-            prefWidth="220"
+            prefWidth="300"
             prefHeight="48"
             disable="true"
             onAction="#continuar"/>
-    
+
     <Button fx:id="btnNuevoEx17"
             text="+ NUEVO EX-17"
             prefWidth="220"
@@ -66,13 +85,5 @@
             visible="false"
             managed="false"
             onAction="#nuevoEx17"/>
-
-    <Button text="⚙ Configuración avanzada"
-            style="-fx-background-color: transparent;"
-            onAction="#abrirConfiguracionAvanzada"/>
-    
-    <Button text="ℹ Acerca de"
-        style="-fx-background-color: transparent;"
-        onAction="#abrirAcercaDe"/>
 
 </VBox>

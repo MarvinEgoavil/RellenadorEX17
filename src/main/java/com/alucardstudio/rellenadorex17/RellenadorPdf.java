@@ -1,6 +1,5 @@
 package com.alucardstudio.rellenadorex17;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,34 +15,30 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
 /**
- * Gestiona la lectura y escritura de los formularios PDF utilizados
- * por Rellenador EX-17.
+ * Gestiona la lectura y escritura de los formularios PDF utilizados por
+ * Rellenador EX-17.
  *
- * La clase copia los datos compatibles de un documento origen
- * (EX-31 / EX-32) hacia una plantilla limpia de EX-17 y completa
- * automáticamente los valores correspondientes a la configuración clásica.
+ * La clase recibe los datos ya extraídos y normalizados en DatosPersona,
+ * los escribe sobre una plantilla limpia de EX-17 y completa automáticamente
+ * los valores correspondientes a la configuración clásica.
  *
  * @author Marvin Egoavil
- * @version 1.0
+ * @version 1.2
  */
 public final class RellenadorPdf {
 
     // ============================================================
     // CONSTRUCTOR
     // ============================================================
-
     /**
-     * Clase de utilidades estáticas.
-     * No necesita ser instanciada.
+     * Clase de utilidades estáticas. No necesita ser instanciada.
      */
     private RellenadorPdf() {
     }
 
-
     // ============================================================
     // SECCIÓN 1 - DATOS DE LA PERSONA EXTRANJERA
     // ============================================================
-
     // NIE: el EX-17 lo divide en letra inicial, números y letra final.
     private static final String NIE_LETRA_INICIAL = "Texto2";
     private static final String NIE_NUMEROS = "Texto3";
@@ -83,101 +78,35 @@ public final class RellenadorPdf {
 
 
     // ============================================================
-    // SEXO - EX-31 ORIGEN
-    // ============================================================
-
-    private static final String EX31_SEXO_X =
-            "Casilla de verificación187";
-
-    private static final String EX31_SEXO_H =
-            "Casilla de verificación141";
-
-    private static final String EX31_SEXO_M =
-            "Casilla de verificación142";
-
-
-    // ============================================================
-    // ESTADO CIVIL - EX-31 ORIGEN
-    // ============================================================
-
-    private static final String EX31_ESTADO_S =
-            "Casilla de verificación143";
-
-    private static final String EX31_ESTADO_C =
-            "Casilla de verificación144";
-
-    private static final String EX31_ESTADO_V =
-            "Casilla de verificación145";
-
-    private static final String EX31_ESTADO_D =
-            "Casilla de verificación146";
-
-    private static final String EX31_ESTADO_SP =
-            "Casilla de verificación147";
-
-
-    // ============================================================
-    // SEXO Y ESTADO CIVIL - EX-32 ORIGEN
-    // ============================================================
-
-    private static final String EX32_SEXO_X =
-            "Casilla de verificación1";
-
-    private static final String EX32_SEXO_H =
-            "Casilla de verificación2";
-
-    private static final String EX32_SEXO_M =
-            "Casilla de verificación3";
-
-    private static final String EX32_ESTADO_S =
-            "Casilla de verificación4";
-
-    private static final String EX32_ESTADO_C =
-            "Casilla de verificación5";
-
-    private static final String EX32_ESTADO_V =
-            "Casilla de verificación6";
-
-    private static final String EX32_ESTADO_D =
-            "Casilla de verificación7";
-
-    private static final String EX32_ESTADO_SP =
-            "Casilla de verificación8";
-
-
-    // ============================================================
     // SEXO Y ESTADO CIVIL - EX-17 DESTINO
     // ============================================================
+    private static final String SEXO_X_DESTINO
+            = "Casilla de verificación1";
 
-    private static final String SEXO_X_DESTINO =
-            "Casilla de verificación1";
+    private static final String SEXO_H_DESTINO
+            = "Casilla de verificación2";
 
-    private static final String SEXO_H_DESTINO =
-            "Casilla de verificación2";
+    private static final String SEXO_M_DESTINO
+            = "Casilla de verificación3";
 
-    private static final String SEXO_M_DESTINO =
-            "Casilla de verificación3";
+    private static final String ESTADO_S_DESTINO
+            = "Casilla de verificación4";
 
-    private static final String ESTADO_S_DESTINO =
-            "Casilla de verificación4";
+    private static final String ESTADO_C_DESTINO
+            = "Casilla de verificación5";
 
-    private static final String ESTADO_C_DESTINO =
-            "Casilla de verificación5";
+    private static final String ESTADO_V_DESTINO
+            = "Casilla de verificación6";
 
-    private static final String ESTADO_V_DESTINO =
-            "Casilla de verificación6";
+    private static final String ESTADO_D_DESTINO
+            = "Casilla de verificación7";
 
-    private static final String ESTADO_D_DESTINO =
-            "Casilla de verificación7";
-
-    private static final String ESTADO_SP_DESTINO =
-            "Casilla de verificación8";
-
+    private static final String ESTADO_SP_DESTINO
+            = "Casilla de verificación8";
 
     // ============================================================
     // SECCIÓN 3 - DOMICILIO A EFECTOS DE NOTIFICACIONES
     // ============================================================
-
     private static final String NOTIF_NOMBRE = "Texto40";
     private static final String NOTIF_NIE = "Texto41";
 
@@ -192,188 +121,92 @@ public final class RellenadorPdf {
     private static final String NOTIF_TELEFONO = "Texto48";
     private static final String NOTIF_EMAIL = "Texto49";
 
-
     // ============================================================
     // LUGAR Y FECHA
     // ============================================================
-
     private static final String LUGAR_FIRMA = "Texto50";
     private static final String DIA_FIRMA = "Texto51";
     private static final String MES_FIRMA = "Texto52";
     private static final String ANIO_FIRMA = "Texto53";
 
-
     // ============================================================
     // CONFIGURACIÓN CLÁSICA
     // ============================================================
+    private static final String CHECK_CONSIENTO
+            = "Casilla de verificación9";
 
-    private static final String CHECK_CONSIENTO =
-            "Casilla de verificación9";
+    private static final String CHECK_TARJETA_INICIAL
+            = "Casilla de verificación10";
 
-    private static final String CHECK_TARJETA_INICIAL =
-            "Casilla de verificación10";
+    private static final String CHECK_RENOVACION
+            = "Casilla de verificación11";
 
-    private static final String CHECK_RENOVACION =
-            "Casilla de verificación11";
-
-    private static final String CHECK_DUPLICADO =
-            "Casilla de verificación12";
-
+    private static final String CHECK_DUPLICADO
+            = "Casilla de verificación12";
 
     // ============================================================
     // GENERACIÓN PRINCIPAL DEL EX-17
     // ============================================================
-
     /**
-     * Rellena automáticamente un EX-17 utilizando los datos del
-     * documento origen y el NIE obtenido desde la resolución.
+     * Rellena automáticamente un EX-17 utilizando los datos del documento
+     * origen y el NIE obtenido desde la resolución.
      *
      * En configuración clásica:
      *
-     * - copia los campos personales compatibles;
-     * - copia sexo y estado civil;
-     * - utiliza el NIE obtenido desde la resolución;
-     * - rellena la sección 3;
-     * - establece MADRID como lugar;
-     * - utiliza la fecha actual;
-     * - marca consentimiento;
-     * - marca Tarjeta inicial;
-     * - desmarca Renovación y Duplicado.
+     * - copia los campos personales compatibles; - copia sexo y estado civil; -
+     * utiliza el NIE obtenido desde la resolución; - rellena la sección 3; -
+     * utiliza la localidad de la persona como lugar de firma; - utiliza la fecha actual; - marca
+     * consentimiento; - marca Tarjeta inicial; - desmarca Renovación y
+     * Duplicado.
      *
      * @param archivoPdf plantilla EX-17 previamente copiada al destino.
-     * @param documentoOrigen EX-31 / EX-32 utilizado como origen de datos.
+     * @param datos datos ya extraídos del documento origen.
      * @param nie NIE obtenido desde la resolución.
      * @throws IOException si ocurre un error al leer o escribir los PDF.
      */
     public static void rellenarNie(
             Path archivoPdf,
-            File documentoOrigen,
+            DatosPersona datos,
             String nie) throws IOException {
 
         validarNie(nie);
+
+        if (datos == null) {
+            throw new IllegalArgumentException("Los datos de la persona no pueden ser nulos.");
+        }
 
         String letraInicial = nie.substring(0, 1);
         String numeros = nie.substring(1, 8);
         String letraFinal = nie.substring(8, 9);
 
-        /*
-         * Trabajamos con un archivo temporal para evitar guardar encima
-         * del mismo PDF que PDFBox tiene abierto.
-         */
-        Path archivoTemporal = Files.createTempFile(
-                "EX17_TEMP_",
-                ".pdf"
-        );
+        Path archivoTemporal = Files.createTempFile("EX17_TEMP_", ".pdf");
 
         try {
+            try (PDDocument pdfDestino = Loader.loadPDF(archivoPdf.toFile())) {
 
-            try (
-                    PDDocument pdfOrigen =
-                            Loader.loadPDF(documentoOrigen);
-
-                    PDDocument pdfDestino =
-                            Loader.loadPDF(archivoPdf.toFile())
-            ) {
-
-                PDAcroForm formularioOrigen =
-                        obtenerFormulario(
-                                pdfOrigen,
-                                "El documento origen no contiene campos editables."
-                        );
-
-                PDAcroForm formularioDestino =
-                        obtenerFormulario(
-                                pdfDestino,
-                                "El EX-17 no contiene campos editables."
-                        );
-
-
-                // --------------------------------------------------------
-                // 1. DATOS PERSONALES
-                // --------------------------------------------------------
-
-                copiarCamposComunes(
-                        formularioOrigen,
-                        formularioDestino
+                PDAcroForm formularioDestino = obtenerFormulario(
+                        pdfDestino,
+                        "El EX-17 no contiene campos editables."
                 );
 
+                // ExtractorDatosPdf ya hizo la lectura del documento origen.
+                // RellenadorPdf se limita a escribir los datos en el EX-17.
+                rellenarDesdeDatosPersona(formularioDestino, datos, nie);
 
-                // --------------------------------------------------------
-                // 2. SEXO Y ESTADO CIVIL
-                // --------------------------------------------------------
-
-                copiarSexoYEstadoCivil(
-                        formularioOrigen,
-                        formularioDestino
-                );
-
-
-                // --------------------------------------------------------
-                // 3. NIE
-                // --------------------------------------------------------
-
-                escribirCampo(
-                        formularioDestino,
-                        NIE_LETRA_INICIAL,
-                        letraInicial
-                );
-
-                escribirCampo(
-                        formularioDestino,
-                        NIE_NUMEROS,
-                        numeros
-                );
-
-                escribirCampo(
-                        formularioDestino,
-                        NIE_LETRA_FINAL,
-                        letraFinal
-                );
-
-
-                // --------------------------------------------------------
-                // 4. SECCIÓN 3
-                // --------------------------------------------------------
-
-                rellenarSeccion3(
-                        formularioDestino,
-                        formularioOrigen,
-                        nie
-                );
-
-
-                // --------------------------------------------------------
-                // 5. LUGAR Y FECHA
-                // --------------------------------------------------------
+                escribirCampo(formularioDestino, NIE_LETRA_INICIAL, letraInicial);
+                escribirCampo(formularioDestino, NIE_NUMEROS, numeros);
+                escribirCampo(formularioDestino, NIE_LETRA_FINAL, letraFinal);
 
                 rellenarLugarYFecha(
-                        formularioDestino
+                        formularioDestino,
+                        valorSeguro(datos.localidad).trim()
                 );
 
+                aplicarConfiguracionClasica(formularioDestino);
 
-                // --------------------------------------------------------
-                // 6. CONFIGURACIÓN CLÁSICA
-                // --------------------------------------------------------
-
-                aplicarConfiguracionClasica(
-                        formularioDestino
-                );
-
-
-                // --------------------------------------------------------
-                // 7. GUARDADO TEMPORAL
-                // --------------------------------------------------------
-
-                pdfDestino.save(
-                        archivoTemporal.toFile()
-                );
+                pdfDestino.save(archivoTemporal.toFile());
             }
 
-
-            /*
-             * Los documentos PDF ya están cerrados.
-             * Ahora podemos sustituir de forma segura el archivo final.
-             */
             Files.move(
                     archivoTemporal,
                     archivoPdf,
@@ -381,22 +214,239 @@ public final class RellenadorPdf {
             );
 
         } finally {
-
-            // Evita dejar archivos temporales si ocurre un error.
-            Files.deleteIfExists(
-                    archivoTemporal
-            );
+            Files.deleteIfExists(archivoTemporal);
         }
     }
 
+    private static void rellenarDesdeDatosPersona(
+            PDAcroForm destino,
+            DatosPersona datos,
+            String nie) throws IOException {
+
+        // SECCIÓN 1
+        escribirCampo(destino, PASAPORTE, datos.pasaporte);
+
+        escribirCampo(
+                destino,
+                PRIMER_APELLIDO,
+                datos.primerApellido
+        );
+
+        escribirCampo(
+                destino,
+                SEGUNDO_APELLIDO,
+                datos.segundoApellido
+        );
+
+        escribirCampo(destino, NOMBRE, datos.nombre);
+
+        escribirCampo(
+                destino,
+                DIA_NACIMIENTO,
+                datos.diaNacimiento
+        );
+
+        escribirCampo(
+                destino,
+                MES_NACIMIENTO,
+                datos.mesNacimiento
+        );
+
+        escribirCampo(
+                destino,
+                ANIO_NACIMIENTO,
+                datos.anioNacimiento
+        );
+
+        escribirCampo(
+                destino,
+                LUGAR_NACIMIENTO,
+                datos.lugarNacimiento
+        );
+
+        escribirCampo(
+                destino,
+                PAIS_NACIMIENTO,
+                datos.paisNacimiento
+        );
+
+        escribirCampo(
+                destino,
+                NACIONALIDAD,
+                datos.nacionalidad
+        );
+
+        escribirCampo(
+                destino,
+                NOMBRE_PADRE,
+                datos.nombrePadre
+        );
+
+        escribirCampo(
+                destino,
+                NOMBRE_MADRE,
+                datos.nombreMadre
+        );
+
+        escribirCampo(
+                destino,
+                DOMICILIO,
+                datos.domicilio
+        );
+
+        escribirCampo(
+                destino,
+                NUMERO_DOMICILIO,
+                datos.numeroDomicilio
+        );
+
+        escribirCampo(
+                destino,
+                PISO,
+                datos.piso
+        );
+
+        escribirCampo(
+                destino,
+                LOCALIDAD,
+                datos.localidad
+        );
+
+        escribirCampo(
+                destino,
+                CODIGO_POSTAL,
+                datos.codigoPostal
+        );
+
+        escribirCampo(
+                destino,
+                PROVINCIA,
+                datos.provincia
+        );
+
+        escribirCampo(
+                destino,
+                TELEFONO,
+                datos.telefono
+        );
+
+        escribirCampo(
+                destino,
+                EMAIL,
+                datos.email
+        );
+
+        // SEXO Y ESTADO CIVIL
+        limpiarSexoYEstadoCivil(destino);
+
+        if ("X".equalsIgnoreCase(datos.sexo)) {
+            marcarCasilla(destino, SEXO_X_DESTINO);
+
+        } else if ("H".equalsIgnoreCase(datos.sexo)) {
+            marcarCasilla(destino, SEXO_H_DESTINO);
+
+        } else if ("M".equalsIgnoreCase(datos.sexo)) {
+            marcarCasilla(destino, SEXO_M_DESTINO);
+        }
+
+        if ("S".equalsIgnoreCase(datos.estadoCivil)) {
+            marcarCasilla(destino, ESTADO_S_DESTINO);
+
+        } else if ("C".equalsIgnoreCase(datos.estadoCivil)) {
+            marcarCasilla(destino, ESTADO_C_DESTINO);
+
+        } else if ("V".equalsIgnoreCase(datos.estadoCivil)) {
+            marcarCasilla(destino, ESTADO_V_DESTINO);
+
+        } else if ("D".equalsIgnoreCase(datos.estadoCivil)) {
+            marcarCasilla(destino, ESTADO_D_DESTINO);
+
+        } else if ("SP".equalsIgnoreCase(datos.estadoCivil)) {
+            marcarCasilla(destino, ESTADO_SP_DESTINO);
+        }
+
+        // SECCIÓN 3
+        String nombreCompleto
+                = (valorSeguro(datos.nombre)
+                        + " "
+                        + valorSeguro(datos.primerApellido)
+                        + " "
+                        + valorSeguro(datos.segundoApellido))
+                        .trim()
+                        .replaceAll("\\s+", " ");
+
+        escribirCampo(
+                destino,
+                NOTIF_NOMBRE,
+                nombreCompleto
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_NIE,
+                nie
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_DOMICILIO,
+                datos.domicilio
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_NUMERO,
+                datos.numeroDomicilio
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_PISO,
+                datos.piso
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_LOCALIDAD,
+                datos.localidad
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_CP,
+                datos.codigoPostal
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_PROVINCIA,
+                datos.provincia
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_TELEFONO,
+                datos.telefono
+        );
+
+        escribirCampo(
+                destino,
+                NOTIF_EMAIL,
+                datos.email
+        );
+    }
+
+    private static String valorSeguro(String valor) {
+
+        return valor == null ? "" : valor;
+    }
 
     // ============================================================
     // VALIDACIONES
     // ============================================================
-
     /**
-     * Comprueba que el NIE recibido sea válido antes de escribirlo
-     * en el formulario.
+     * Comprueba que el NIE recibido sea válido antes de escribirlo en el
+     * formulario.
      */
     private static void validarNie(String nie) {
 
@@ -408,34 +458,8 @@ public final class RellenadorPdf {
         }
     }
 
-
-    /**
-     * Comprueba si un PDF contiene un formulario AcroForm editable.
-     *
-     * @param archivoPdf archivo que queremos comprobar.
-     * @return true si contiene al menos un campo editable.
-     * @throws IOException si el PDF no puede ser leído.
-     */
-    public static boolean tieneFormularioEditable(
-            File archivoPdf) throws IOException {
-
-        try (PDDocument documento =
-                Loader.loadPDF(archivoPdf)) {
-
-            PDAcroForm formulario =
-                    documento
-                            .getDocumentCatalog()
-                            .getAcroForm();
-
-            return formulario != null
-                    && formulario
-                            .getFieldTree()
-                            .iterator()
-                            .hasNext();
-        }
-    }
-
-
+        
+    
     /**
      * Obtiene el formulario AcroForm de un documento.
      */
@@ -443,8 +467,8 @@ public final class RellenadorPdf {
             PDDocument documento,
             String mensajeError) throws IOException {
 
-        PDAcroForm formulario =
-                documento
+        PDAcroForm formulario
+                = documento
                         .getDocumentCatalog()
                         .getAcroForm();
 
@@ -458,11 +482,9 @@ public final class RellenadorPdf {
         return formulario;
     }
 
-
     // ============================================================
     // CAMPOS DE TEXTO
     // ============================================================
-
     /**
      * Escribe un valor en un campo del PDF.
      */
@@ -471,8 +493,8 @@ public final class RellenadorPdf {
             String nombreCampo,
             String valor) throws IOException {
 
-        PDField campo =
-                formulario.getField(nombreCampo);
+        PDField campo
+                = formulario.getField(nombreCampo);
 
         if (campo == null) {
 
@@ -486,247 +508,14 @@ public final class RellenadorPdf {
                 valor == null ? "" : valor
         );
     }
-
-
-    /**
-     * Obtiene el valor de un campo del formulario.
-     */
-    private static String obtenerValor(
-            PDAcroForm formulario,
-            String nombreCampo) throws IOException {
-
-        PDField campo =
-                formulario.getField(nombreCampo);
-
-        if (campo == null) {
-
-            throw new IOException(
-                    "No existe el campo: "
-                    + nombreCampo
-            );
-        }
-
-        String valor =
-                campo.getValueAsString();
-
-        return valor == null
-                ? ""
-                : valor.trim();
-    }
-
-
-    // ============================================================
-    // COPIA DE DATOS PERSONALES
-    // ============================================================
-
-    /**
-     * Copia los campos de texto compatibles entre el documento origen
-     * y el EX-17 de destino.
-     *
-     * El NIE no se copia porque siempre procede de la resolución.
-     *
-     * Si uno de los campos no existe en alguno de los dos formularios,
-     * simplemente se ignora. Esto permite trabajar con documentos que
-     * presentan pequeñas diferencias internas.
-     */
-    private static void copiarCamposComunes(
-            PDAcroForm origen,
-            PDAcroForm destino) throws IOException {
-
-        String[] campos = {
-            PASAPORTE,
-            PRIMER_APELLIDO,
-            SEGUNDO_APELLIDO,
-            NOMBRE,
-            DIA_NACIMIENTO,
-            MES_NACIMIENTO,
-            ANIO_NACIMIENTO,
-            LUGAR_NACIMIENTO,
-            PAIS_NACIMIENTO,
-            NACIONALIDAD,
-            NOMBRE_PADRE,
-            NOMBRE_MADRE,
-            DOMICILIO,
-            NUMERO_DOMICILIO,
-            PISO,
-            LOCALIDAD,
-            CODIGO_POSTAL,
-            PROVINCIA,
-            TELEFONO,
-            EMAIL
-        };
-
-        for (String nombreCampo : campos) {
-
-            PDField campoOrigen =
-                    origen.getField(nombreCampo);
-
-            PDField campoDestino =
-                    destino.getField(nombreCampo);
-
-            /*
-             * Algunos modelos pueden no contener exactamente
-             * los mismos campos. En ese caso simplemente se omiten.
-             */
-            if (campoOrigen == null
-                    || campoDestino == null) {
-
-                continue;
-            }
-
-            String valor =
-                    campoOrigen.getValueAsString();
-
-            campoDestino.setValue(
-                    valor == null ? "" : valor
-            );
-        }
-    }
-
-
+    
     // ============================================================
     // SEXO Y ESTADO CIVIL
     // ============================================================
-
+    
     /**
-     * Detecta si el documento origen utiliza la estructura del EX-31
-     * o del EX-32 y copia las casillas correspondientes hacia el EX-17.
-     */
-    private static void copiarSexoYEstadoCivil(
-            PDAcroForm origen,
-            PDAcroForm destino) throws IOException {
-
-        limpiarSexoYEstadoCivil(
-                destino
-        );
-
-        boolean esEx31 =
-                origen.getField(
-                        EX31_SEXO_X
-                ) != null;
-
-        if (esEx31) {
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_SEXO_X,
-                    SEXO_X_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_SEXO_H,
-                    SEXO_H_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_SEXO_M,
-                    SEXO_M_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_ESTADO_S,
-                    ESTADO_S_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_ESTADO_C,
-                    ESTADO_C_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_ESTADO_V,
-                    ESTADO_V_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_ESTADO_D,
-                    ESTADO_D_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX31_ESTADO_SP,
-                    ESTADO_SP_DESTINO
-            );
-
-        } else {
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_SEXO_X,
-                    SEXO_X_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_SEXO_H,
-                    SEXO_H_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_SEXO_M,
-                    SEXO_M_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_ESTADO_S,
-                    ESTADO_S_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_ESTADO_C,
-                    ESTADO_C_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_ESTADO_V,
-                    ESTADO_V_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_ESTADO_D,
-                    ESTADO_D_DESTINO
-            );
-
-            copiarCasillaSiMarcada(
-                    origen,
-                    destino,
-                    EX32_ESTADO_SP,
-                    ESTADO_SP_DESTINO
-            );
-        }
-    }
-
-
-    /**
-     * Desmarca todas las casillas de sexo y estado civil del EX-17
-     * antes de copiar las opciones del documento origen.
+     * Desmarca todas las casillas de sexo y estado civil del EX-17 antes de
+     * copiar las opciones del documento origen.
      */
     private static void limpiarSexoYEstadoCivil(
             PDAcroForm destino) throws IOException {
@@ -772,54 +561,8 @@ public final class RellenadorPdf {
         );
     }
 
-
-    /**
-     * Marca la casilla de destino únicamente si la casilla
-     * correspondiente del documento origen está marcada.
-     */
-    private static void copiarCasillaSiMarcada(
-            PDAcroForm origen,
-            PDAcroForm destino,
-            String casillaOrigen,
-            String casillaDestino) throws IOException {
-
-        if (estaMarcadaSeguro(
-                origen,
-                casillaOrigen
-        )) {
-
-            marcarCasilla(
-                    destino,
-                    casillaDestino
-            );
-        }
-    }
-
-
-    /**
-     * Comprueba de forma segura si una casilla está marcada.
-     *
-     * Si el campo no existe o no es una casilla devuelve false.
-     */
-    private static boolean estaMarcadaSeguro(
-            PDAcroForm formulario,
-            String nombreCasilla) {
-
-        PDField campo =
-                formulario.getField(nombreCasilla);
-
-        if (!(campo instanceof PDCheckBox casilla)) {
-            return false;
-        }
-
-        String valor =
-                casilla.getValue();
-
-        return valor != null
-                && !valor.equalsIgnoreCase("Off");
-    }
-
-
+    
+    
     /**
      * Marca una casilla del formulario.
      */
@@ -827,8 +570,8 @@ public final class RellenadorPdf {
             PDAcroForm formulario,
             String nombreCasilla) throws IOException {
 
-        PDField campo =
-                formulario.getField(nombreCasilla);
+        PDField campo
+                = formulario.getField(nombreCasilla);
 
         if (campo == null) {
 
@@ -849,7 +592,6 @@ public final class RellenadorPdf {
         casilla.check();
     }
 
-
     /**
      * Desmarca una casilla del formulario.
      */
@@ -857,8 +599,8 @@ public final class RellenadorPdf {
             PDAcroForm formulario,
             String nombreCasilla) throws IOException {
 
-        PDField campo =
-                formulario.getField(nombreCasilla);
+        PDField campo
+                = formulario.getField(nombreCasilla);
 
         if (campo == null) {
 
@@ -872,176 +614,47 @@ public final class RellenadorPdf {
             casilla.unCheck();
         }
     }
-
-
-    // ============================================================
-    // SECCIÓN 3
-    // ============================================================
-
-    /**
-     * Rellena el domicilio a efectos de notificaciones utilizando
-     * los datos disponibles en la sección 1.
-     */
-    private static void rellenarSeccion3(
-            PDAcroForm destino,
-            PDAcroForm origen,
-            String nie) throws IOException {
-
-        String nombre =
-                obtenerValor(
-                        origen,
-                        NOMBRE
-                );
-
-        String apellido1 =
-                obtenerValor(
-                        origen,
-                        PRIMER_APELLIDO
-                );
-
-        String apellido2 =
-                obtenerValor(
-                        origen,
-                        SEGUNDO_APELLIDO
-                );
-
-        String nombreCompleto =
-                (nombre
-                + " "
-                + apellido1
-                + " "
-                + apellido2)
-                        .trim()
-                        .replaceAll("\\s+", " ");
-
-
-        escribirCampo(
-                destino,
-                NOTIF_NOMBRE,
-                nombreCompleto
-        );
-
-        // El NIE siempre procede de la resolución.
-        escribirCampo(
-                destino,
-                NOTIF_NIE,
-                nie
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_DOMICILIO,
-                obtenerValor(
-                        origen,
-                        DOMICILIO
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_NUMERO,
-                obtenerValor(
-                        origen,
-                        NUMERO_DOMICILIO
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_PISO,
-                obtenerValor(
-                        origen,
-                        PISO
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_LOCALIDAD,
-                obtenerValor(
-                        origen,
-                        LOCALIDAD
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_CP,
-                obtenerValor(
-                        origen,
-                        CODIGO_POSTAL
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_PROVINCIA,
-                obtenerValor(
-                        origen,
-                        PROVINCIA
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_TELEFONO,
-                obtenerValor(
-                        origen,
-                        TELEFONO
-                )
-        );
-
-        escribirCampo(
-                destino,
-                NOTIF_EMAIL,
-                obtenerValor(
-                        origen,
-                        EMAIL
-                )
-        );
-    }
-
-
+    
     // ============================================================
     // LUGAR Y FECHA
     // ============================================================
-
     /**
-     * Introduce MADRID y la fecha actual en los campos correspondientes.
+     * Introduce como lugar de firma la localidad de la persona y utiliza
+     * la fecha actual en los campos correspondientes.
      */
     private static void rellenarLugarYFecha(
-            PDAcroForm formulario) throws IOException {
+            PDAcroForm formulario,
+            String localidad) throws IOException {
 
-        LocalDate hoy =
-                LocalDate.now();
+        LocalDate hoy
+                = LocalDate.now();
 
-        String dia =
-                hoy.format(
+        String dia
+                = hoy.format(
                         DateTimeFormatter.ofPattern(
                                 "dd"
                         )
                 );
 
-        String mes =
-                hoy.format(
+        String mes
+                = hoy.format(
                         DateTimeFormatter.ofPattern(
                                 "MMMM",
                                 new Locale("es", "ES")
                         )
                 );
 
-        String anio =
-                hoy.format(
+        String anio
+                = hoy.format(
                         DateTimeFormatter.ofPattern(
                                 "yyyy"
                         )
                 );
 
-
         escribirCampo(
                 formulario,
                 LUGAR_FIRMA,
-                "MADRID"
+                valorSeguro(localidad).trim()
         );
 
         escribirCampo(
@@ -1063,11 +676,9 @@ public final class RellenadorPdf {
         );
     }
 
-
     // ============================================================
     // CONFIGURACIÓN CLÁSICA
     // ============================================================
-
     /**
      * Aplica las opciones predeterminadas de la configuración clásica.
      */
@@ -1096,108 +707,5 @@ public final class RellenadorPdf {
                 formulario,
                 CHECK_DUPLICADO
         );
-    }
-
-
-    // ============================================================
-    // HERRAMIENTAS DE DIAGNÓSTICO
-    // ============================================================
-
-    /**
-     * Muestra en consola todos los campos del PDF que contienen
-     * algún valor.
-     *
-     * Método destinado únicamente a diagnóstico y desarrollo.
-     * No modifica el documento.
-     */
-    public static void mostrarCamposRellenos(
-            File archivoPdf) throws IOException {
-
-        try (PDDocument documento =
-                Loader.loadPDF(archivoPdf)) {
-
-            PDAcroForm formulario =
-                    documento
-                            .getDocumentCatalog()
-                            .getAcroForm();
-
-            if (formulario == null) {
-
-                System.out.println(
-                        "El PDF no tiene formulario."
-                );
-
-                return;
-            }
-
-            System.out.println(
-                    "=== CAMPOS CON VALOR ==="
-            );
-
-            for (PDField campo :
-                    formulario.getFieldTree()) {
-
-                String valor =
-                        campo.getValueAsString();
-
-                if (valor != null
-                        && !valor.isBlank()
-                        && !valor.equalsIgnoreCase("Off")) {
-
-                    System.out.println(
-                            campo.getFullyQualifiedName()
-                            + " = "
-                            + valor
-                    );
-                }
-            }
-        }
-    }
-
-
-    /**
-     * Muestra en consola todas las casillas existentes en un PDF
-     * y su estado actual.
-     *
-     * Método destinado únicamente a diagnóstico y desarrollo.
-     * No modifica el documento.
-     */
-    public static void mostrarCasillas(
-            File archivoPdf) throws IOException {
-
-        try (PDDocument documento =
-                Loader.loadPDF(archivoPdf)) {
-
-            PDAcroForm formulario =
-                    documento
-                            .getDocumentCatalog()
-                            .getAcroForm();
-
-            if (formulario == null) {
-
-                System.out.println(
-                        "El PDF no tiene formulario."
-                );
-
-                return;
-            }
-
-            System.out.println(
-                    "=== CASILLAS DEL PDF ==="
-            );
-
-            for (PDField campo :
-                    formulario.getFieldTree()) {
-
-                if (campo instanceof PDCheckBox casilla) {
-
-                    System.out.println(
-                            casilla.getFullyQualifiedName()
-                            + " = "
-                            + casilla.getValue()
-                    );
-                }
-            }
-        }
     }
 }

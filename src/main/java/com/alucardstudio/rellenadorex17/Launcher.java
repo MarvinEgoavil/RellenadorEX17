@@ -8,7 +8,7 @@ package com.alucardstudio.rellenadorex17;
  * la aplicación se distribuye mediante jpackage.
  *
  * @author Marvin Egoavil
- * @version 1.0
+ * @version 1.2
  */
 public class Launcher {
 
